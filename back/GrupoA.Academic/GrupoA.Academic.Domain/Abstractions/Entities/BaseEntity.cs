@@ -1,4 +1,6 @@
 ﻿using GrupoA.Academic.Commom.Generals;
+using System;
+
 namespace GrupoA.Academic.Domain.Abstractions.Entities;
 
 public abstract class BaseEntity
