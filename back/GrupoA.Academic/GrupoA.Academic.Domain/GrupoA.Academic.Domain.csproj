@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GrupoA.Academic.Commom\GrupoA.Academic.Commom.csproj" />
+  </ItemGroup>
+
 </Project>
