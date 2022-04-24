@@ -1,10 +1,13 @@
-﻿using System.Linq.Expressions;
+﻿using System;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace GrupoA.Academic.Domain.Abstractions.Interfaces;
 public interface IRepository<TEntity> where TEntity : class
 {
     Task<TEntity> GetById(Guid id, bool asNoTracking = false);
-    IQueryable<TEntity> GetAll();
+    IQueryable<TEntity> GetAll(string filter = "");
     Task Add(TEntity entity);
     void Update(TEntity entity);
     void Delete(TEntity entity, bool destroy = false);
