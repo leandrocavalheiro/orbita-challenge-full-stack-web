@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using GrupoA.Academic.Application.Students.Commands;
 using GrupoA.Academic.Application.Students.ViewModels;
 using GrupoA.Academic.Domain.Students.Entities;
 
@@ -11,6 +12,8 @@ public class StudentAutoMapper : Profile
         CreateMap<Student, StudentViewModel>()
             .ForMember(d => d.Active, opt => opt.MapFrom(src => src.IsActive()));
         CreateMap<Student, StudentListViewModel>()
-            .ForMember(d => d.Active, opt => opt.MapFrom(src => src.IsActive()));        
+            .ForMember(d => d.Active, opt => opt.MapFrom(src => src.IsActive()));
+        CreateMap<CreateStudentCommand, Student>();
+
     }
 }
