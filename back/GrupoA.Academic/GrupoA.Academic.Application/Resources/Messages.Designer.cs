@@ -106,6 +106,15 @@ namespace GrupoA.Academic.Application.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Aluno já cadastrado..
+        /// </summary>
+        internal static string StudentAlreadyRegistered {
+            get {
+                return ResourceManager.GetString("StudentAlreadyRegistered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Aluno não encontrado..
         /// </summary>
         internal static string StudentNotFound {

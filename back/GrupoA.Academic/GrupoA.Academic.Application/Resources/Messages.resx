@@ -132,6 +132,9 @@
   <data name="RequiredField" xml:space="preserve">
     <value>O campo {0} é obrigatório.</value>
   </data>
+  <data name="StudentAlreadyRegistered" xml:space="preserve">
+    <value>Aluno já cadastrado.</value>
+  </data>
   <data name="StudentNotFound" xml:space="preserve">
     <value>Aluno não encontrado.</value>
   </data>

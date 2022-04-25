@@ -1,5 +1,4 @@
-﻿
-using GrupoA.Academic.Application.Abstractions.Models;
+﻿using GrupoA.Academic.Application.Abstractions.Models;
 using GrupoA.Academic.Application.Resources;
 using GrupoA.Academic.Application.Students.Commands;
 using GrupoA.Academic.Commom.Interfaces;
