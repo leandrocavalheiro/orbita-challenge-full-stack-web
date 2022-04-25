@@ -56,7 +56,5 @@ public static class AcademicMethods
         => !string.IsNullOrEmpty(value?.ToString());
     
     public static bool Filled(Guid value)    
-        => !string.IsNullOrEmpty(value.ToString());
-    
-
+        => !string.IsNullOrEmpty(value.ToString());    
 }
