@@ -1,4 +1,6 @@
-﻿namespace GrupoA.Academic.Commom.Extensions;
+﻿using System;
+
+namespace GrupoA.Academic.Commom.Extensions;
 
 public static class DateTimeExtensions
 {

@@ -1,4 +1,5 @@
 ﻿using GrupoA.Academic.Commom.Extensions;
+using System;
 using System.Text.RegularExpressions;
 
 namespace GrupoA.Academic.Commom.Generals;
@@ -47,4 +48,15 @@ public static class AcademicMethods
         digit += remainder;
         return value.EndsWith(digit);
     }
+
+    public static bool Filled(string value)    
+        => !string.IsNullOrEmpty(value);
+    
+    public static bool Filled(Guid? value)    
+        => !string.IsNullOrEmpty(value?.ToString());
+    
+    public static bool Filled(Guid value)    
+        => !string.IsNullOrEmpty(value.ToString());
+    
+
 }
