@@ -75,6 +75,8 @@ public class StudentsController : ApiController
     /// <param name="filter">Valor usado como filtro</param>
     /// <param name="page">Número da pagina desejada</param>
     /// <param name="pageSize">Quantidade de registros por página</param>
+    /// <param name="sortBy">Por qual campo será a ordenação. Default: Code</param>
+    /// <param name="sortDesc">Ordenação descendente</param>
     /// <returns>PaginationViewModel<StudentListViewModel></returns>
     /// <response code="200">Lista de alunos</response>
     /// <response code="400">Erro ao tentar obter uma lista de alunos</response>
@@ -83,8 +85,9 @@ public class StudentsController : ApiController
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [HttpGet]
-    public async Task<ActionResult<PaginationViewModel<StudentListViewModel>>> Get([FromQuery(Name = "filter")] string filter = "", [FromQuery(Name = "page")] int page = Page, [FromQuery(Name = "pageSize")] int pageSize = PageSize)
-        => AcademicResponse(await mediator.Send(new GetStudentsQuery(filter, page, pageSize)));
+    public async Task<ActionResult<PaginationViewModel<StudentListViewModel>>> Get([FromQuery(Name = "filter")] string filter = "", [FromQuery(Name = "page")] int page = Page, [FromQuery(Name = "pageSize")] int pageSize = PageSize,
+                                                                                   [FromQuery(Name = "sortBy")] string sortBy = "Code", [FromQuery(Name = "sortDesc")] bool sortDesc = true)
+        => AcademicResponse(await mediator.Send(new GetStudentsQuery(filter, page, pageSize, sortBy, sortDesc)));
 
     /// <summary>
     /// Método responsável por deletar um aluno

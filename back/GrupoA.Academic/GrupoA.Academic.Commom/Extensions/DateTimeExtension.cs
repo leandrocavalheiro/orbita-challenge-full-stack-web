@@ -2,7 +2,7 @@
 
 namespace GrupoA.Academic.Commom.Extensions;
 
-public static class DateTimeExtensions
+public static class DateTimeExtension
 {
     public static DateTime? SetKind(this DateTime? dateTime)
     {

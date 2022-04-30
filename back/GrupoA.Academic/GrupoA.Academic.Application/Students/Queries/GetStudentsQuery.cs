@@ -6,7 +6,7 @@ namespace GrupoA.Academic.Application.Students.Queries;
 
 public class GetStudentsQuery : PaginationQuery<PaginationViewModel<StudentListViewModel>>
 {
-    public GetStudentsQuery(string filter, int page, int pageSize) : base(filter, page, pageSize)
+    public GetStudentsQuery(string filter, int page, int pageSize, string sortBy, bool sortDesc) : base(filter, page, pageSize, sortBy, sortDesc)
     {
     }
 }

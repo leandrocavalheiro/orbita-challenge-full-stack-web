@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using GrupoA.Academic.Infra.Data.Extensions;
 
 namespace GrupoA.Academic.Infra.Data.Repositories.Abstractions;
 
@@ -39,13 +40,14 @@ public abstract class Repository<TEntity, TContext> : IRepository<TEntity> where
                         .Where(p => p.DeletedAt.Equals(null))
                         .AnyAsync(predicate);
     }
-    public virtual IQueryable<TEntity> GetAll(string filter = "")
+    public virtual IQueryable<TEntity> GetAll(string filter = "", string sortBy = "CreatedAt", bool sortDesc = true)
     {
-        return _context
-                    .Set<TEntity>()
-                    .AsNoTrackingWithIdentityResolution()
-                    .Where(p => p.DeletedAt.Equals(null))
-                    .OrderByDescending(p => p.CreatedAt);
+        IQueryable<TEntity> query = _context
+                                        .Set<TEntity>()
+                                        .AsNoTrackingWithIdentityResolution()
+                                        .Where(p => p.DeletedAt.Equals(null));        
+
+        return query.AddSort(sortBy, sortDesc);
     }
     public virtual async Task<TEntity> GetById(Guid id, bool asNoTracking = false)
     {
