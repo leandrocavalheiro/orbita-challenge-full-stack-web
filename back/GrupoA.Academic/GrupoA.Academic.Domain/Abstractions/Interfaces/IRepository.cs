@@ -7,7 +7,7 @@ namespace GrupoA.Academic.Domain.Abstractions.Interfaces;
 public interface IRepository<TEntity> where TEntity : class
 {
     Task<TEntity> GetById(Guid id, bool asNoTracking = false);
-    IQueryable<TEntity> GetAll(string filter = "");
+    IQueryable<TEntity> GetAll(string filter = "", string sortBy = "Code", bool sortDesc = true);
     Task Add(TEntity entity);
     void Update(TEntity entity);
     void Delete(TEntity entity, bool destroy = false);

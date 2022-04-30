@@ -25,7 +25,7 @@ public class GetStudentsQueryHandler : IRequestHandler<GetStudentsQuery, Paginat
 
     public async Task<PaginationViewModel<StudentListViewModel>> Handle(GetStudentsQuery request, CancellationToken cancellationToken)
     {
-        return await _uow.Students.GetAll(request.Filter)
+        return await _uow.Students.GetAll(request.Filter, request.SortBy, request.SortDesc)
                                     .PaginationAsync<Student, StudentListViewModel>(_mapper, request.Page, request.PageSize, cancellationToken);
     }
 }
