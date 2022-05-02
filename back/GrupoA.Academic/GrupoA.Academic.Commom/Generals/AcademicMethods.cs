@@ -17,7 +17,7 @@ public static class AcademicMethods
 
     public static bool EmailValidator(string value)
         => Regex.IsMatch(value, EmailRegex);
-    public static bool CPFValidator(string value)
+    public static bool CpfValidator(string value)
     {
         if (string.IsNullOrEmpty(value)) 
             return false;
@@ -51,7 +51,10 @@ public static class AcademicMethods
 
     public static bool Filled(string value)    
         => !string.IsNullOrEmpty(value);
-    
+
+    public static bool Filled(int value)
+        => value > 0;
+
     public static bool Filled(Guid? value)    
         => !string.IsNullOrEmpty(value?.ToString());
     

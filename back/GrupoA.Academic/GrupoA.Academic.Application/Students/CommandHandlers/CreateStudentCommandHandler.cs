@@ -45,7 +45,7 @@ public class CreateStudentCommandHandler : IRequestHandler<CreateStudentCommand,
 
     private async Task<bool> Validations(CreateStudentCommand command)
     {
-        await _studentService.StudentAlreadyRegistered(command.RA, command.CPF);
+        await _studentService.StudentAlreadyRegistered(command.Ra, command.Cpf);
         return !_notificationContext.HasNotifications();
     }
 }

@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CPFField" xml:space="preserve">
+  <data name="CpfField" xml:space="preserve">
     <value>CPF</value>
   </data>
   <data name="InvalidField" xml:space="preserve">
@@ -126,7 +126,7 @@
   <data name="NameField" xml:space="preserve">
     <value>Nome</value>
   </data>
-  <data name="RAField" xml:space="preserve">
+  <data name="RaField" xml:space="preserve">
     <value>Registro Acadêmico</value>
   </data>
   <data name="RequiredField" xml:space="preserve">

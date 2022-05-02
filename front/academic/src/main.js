@@ -3,10 +3,11 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify'
-import { VueMaskDirective } from 'v-mask'
+import VueMask from 'v-mask'
+
+Vue.use(VueMask);
 
 
-Vue.directive('mask', VueMaskDirective);
 Vue.config.productionTip = false
 Vue.prototype.$show_alert =  function(type_alert, message){  
   this.$store.commit('change', {'alert': true, 'type_alert': type_alert,'message': message})

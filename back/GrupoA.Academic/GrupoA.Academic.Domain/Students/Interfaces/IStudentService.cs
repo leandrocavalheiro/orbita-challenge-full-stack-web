@@ -4,5 +4,5 @@ namespace GrupoA.Academic.Domain.Students.Interfaces;
 
 public interface IStudentService
 {
-    Task<bool> StudentAlreadyRegistered(string ra, string cpf);
+    Task<bool> StudentAlreadyRegistered(int ra, string cpf);
 }
