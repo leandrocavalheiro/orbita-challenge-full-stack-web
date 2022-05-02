@@ -14,18 +14,18 @@ public class CreateStudentCommandValidator : AbstractValidator<CreateStudentComm
                 .WithErrorCode(nameof(Messages.RequiredField))
                 .WithMessage(string.Format(Messages.RequiredField, Messages.NameField));
 
-        RuleFor(p => p.RA)
+        RuleFor(p => p.Ra)
             .Must(AcademicMethods.Filled)
                 .WithErrorCode(nameof(Messages.RequiredField))
-                .WithMessage(string.Format(Messages.RequiredField, Messages.RAField));
+                .WithMessage(string.Format(Messages.RequiredField, Messages.RaField));
 
-        RuleFor(p => p.CPF)
+        RuleFor(p => p.Cpf)
             .Must(AcademicMethods.Filled)
                 .WithErrorCode(nameof(Messages.RequiredField))
-                .WithMessage(string.Format(Messages.RequiredField, Messages.CPFField))
-            .Must(AcademicMethods.CPFValidator)
+                .WithMessage(string.Format(Messages.RequiredField, Messages.CpfField))
+            .Must(AcademicMethods.CpfValidator)
                 .WithErrorCode(nameof(Messages.InvalidField))
-                .WithMessage(string.Format(Messages.InvalidField, Messages.CPFField))
-                .When(p => !string.IsNullOrEmpty(p.CPF));
+                .WithMessage(string.Format(Messages.InvalidField, Messages.CpfField))
+                .When(p => !string.IsNullOrEmpty(p.Cpf));
     }
 }

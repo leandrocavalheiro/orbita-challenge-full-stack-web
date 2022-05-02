@@ -15,7 +15,7 @@
         slot="progress"
     >
         <v-progress-linear 
-            color="deep-purple" 
+            color="grey darken-2" 
             height="10" 
             indeterminate 
         />
@@ -38,7 +38,7 @@
               </v-col>   
 
               <v-col cols="4" xs="12" >                                
-                <v-text-field v-model="student.cpf" label="C.P.F." return-masked-value mask="###.###.###-##" required disabled />                
+                <v-text-field v-model="student.cpf" label="C.P.F."  return-masked-value mask="'(###) ###-####'" required disabled />                
               </v-col>
 
               <v-col cols="12">
@@ -66,8 +66,9 @@
   </v-row>  
 </template>
 <script>
-  import student_service from '@/services/student';
-  import common_service from '@/services/common';
+  import student_service from '@/services/student'
+  import common_service from '@/services/common'
+
   export default {
 
     data: () => ({
@@ -102,8 +103,7 @@
       }
     },
     async created() {      
-      this.$store.commit('action_change', 'edit')
-      this.student = (await student_service.getById(this.$route.params.id)).data;
+      this.student = (await student_service.get_by_id(this.$route.params.id)).data;
     },    
   }
 </script>

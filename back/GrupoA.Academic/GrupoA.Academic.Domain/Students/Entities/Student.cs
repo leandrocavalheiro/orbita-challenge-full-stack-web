@@ -8,8 +8,8 @@ public class Student : BaseEntity
     public int Code { get; set; }    
     public string Name { get; set; }
     public string Email { get; set; }
-    public int RA { get; set; }
-    public string CPF { get; set; }
+    public int Ra { get; set; }
+    public string Cpf { get; set; }
     protected Student()
     {
     }
@@ -18,7 +18,7 @@ public class Student : BaseEntity
         Id = id;
         Name = name;
         Email = email;
-        RA = ra;
-        CPF = AcademicMethods.ExtractNumbersOnly(cpf);
+        Ra = ra;
+        Cpf = AcademicMethods.ExtractNumbersOnly(cpf);
     }
 }

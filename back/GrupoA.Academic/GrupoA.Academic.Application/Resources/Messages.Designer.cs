@@ -63,9 +63,9 @@ namespace GrupoA.Academic.Application.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a CPF.
         /// </summary>
-        internal static string CPFField {
+        internal static string CpfField {
             get {
-                return ResourceManager.GetString("CPFField", resourceCulture);
+                return ResourceManager.GetString("CpfField", resourceCulture);
             }
         }
         
@@ -90,9 +90,9 @@ namespace GrupoA.Academic.Application.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Registro Acadêmico.
         /// </summary>
-        internal static string RAField {
+        internal static string RaField {
             get {
-                return ResourceManager.GetString("RAField", resourceCulture);
+                return ResourceManager.GetString("RaField", resourceCulture);
             }
         }
         

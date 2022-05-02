@@ -15,9 +15,9 @@ public class StudentService : IStudentService
         _uow = uow;
         _notificationContext = notificationContext;
     }
-    public async Task<bool> StudentAlreadyRegistered(string ra, string cpf)
-    {
-        if (!await _uow.Students.Exists(p => p.RA.Equals(ra) || p.CPF.Equals(cpf)))
+    public async Task<bool> StudentAlreadyRegistered(int ra, string cpf)
+    {        
+        if (!await _uow.Students.Exists(p => p.Ra.Equals(ra) || p.Cpf.Equals(cpf)))
             return false;
 
         _notificationContext.BadRequest(nameof(Messages.StudentAlreadyRegistered), Messages.StudentAlreadyRegistered);

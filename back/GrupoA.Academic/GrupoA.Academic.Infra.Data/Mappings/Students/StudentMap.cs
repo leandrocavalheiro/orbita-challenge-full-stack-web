@@ -28,17 +28,17 @@ public class StudentMap : IEntityTypeConfiguration<Student>
             .IsRequired();
 
         builder
-            .Property(m => m.CPF)
+            .Property(m => m.Cpf)
             .HasColumnType(AcademicDataType.String(11))
             .IsRequired();
 
         builder
-            .Property(m => m.RA)
+            .Property(m => m.Ra)
             .HasColumnType(AcademicDataType.Integer)
             .IsRequired();
 
         builder
-            .HasIndex(x => x.RA)
+            .HasIndex(x => x.Ra)
             .IsUnique();
     }
 }

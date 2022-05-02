@@ -1,13 +1,24 @@
 export default{
     get_message_from_response(response, entity_name= 'Registro', action = 'cadastrado') {
+        let messages = []
         switch (response.status) {
             case 200:
             case 201:
-                return entity_name + ' ' +  action + ' com sucesso!'
+            case 204:
+                messages[messages.length] = entity_name + ' ' +  action + ' com sucesso!'
+                break;
             case 400:
-                return response.data.message
+                if(Array.isArray(response.data))
+                    messages[messages.length] = "Oops algo inesperado aconteceu!"
+                else
+                    response.data.error.forEach(element => {
+                        messages[messages.length] = element.message
+                });                
+                break;                
             case 500:
-                return 'Erro Interno.'
+                messages[messages.length] = "Oops algo inesperado aconteceu!"
+                break;
           }
+          return messages;
     },
 }

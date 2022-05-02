@@ -6,29 +6,68 @@ const headers = {
 const endpointName = 'students'
 
 export default{
-    async getAll(page, pageSize, filter, sortBy = "code", sortDesc = false) {
+    async get_all(page, pageSize, filter, sortBy = "code", sortDesc = false) {
+
         if(filter === null)
             filter = ""
-        return await http.get('/' + endpointName + '?page=' + page + '&pageSize=' + pageSize + '&filter=' + filter + '&sortBy' + sortBy + '&sortDesc=' + sortDesc)
+
+        let api_response = null
+        await http.get('/' + endpointName + '?page=' + page + '&pageSize=' + pageSize + '&filter=' + filter + '&sortBy=' + sortBy + '&sortDesc=' + sortDesc)
+        .then(function (response) {
+            api_response = response
+        })
+        .catch(function (error) {
+            api_response = error.response
+        });      
+        return api_response  
     },
 
-    async getById(id) {
-        return await http.get('/' + endpointName + '/' + id)
+    async get_by_id(id) {
+        let api_response = null
+        await  http.get('/' + endpointName + '/' + id)
+        .then(function (response) {
+            api_response = response
+        })
+        .catch(function (error) {
+            api_response = error.response
+        });      
+        return api_response  
     },
     
-    async post (data) {                
-        return await await http.post('/' + endpointName, data, {headers})
+    async post (data) {
+        let api_response = null
+        await http.post('/' + endpointName, data, {headers})
+        .then(function (response) {
+            api_response = response
+        })
+        .catch(function (error) {
+            api_response = error.response
+        });    
+        console.log(api_response)    
+        return api_response
     },
 
-    async put(id, data) {        
-        return await http.put( '/' + endpointName + '/' + id, data, {headers});
+    async put(id, data) {                
+        let api_response = null
+        await http.put( '/' + endpointName + '/' + id, data, {headers})
+        .then(function (response) {
+            api_response = response
+        })
+        .catch(function (error) {
+            api_response = error.response
+        });      
+        return api_response        
     },
 
     async delete(id) {                
-        return await http.delete('/' + endpointName + '/' + id);
-    },
-    
-    async get_message(response) {                
-        return response.data.error.message;
-    },    
+        let api_response = null
+        await http.delete('/' + endpointName + '/' + id)
+        .then(function (response) {
+            api_response = response
+        })
+        .catch(function (error) {
+            api_response = error.response
+        });      
+        return api_response           
+    }      
 }

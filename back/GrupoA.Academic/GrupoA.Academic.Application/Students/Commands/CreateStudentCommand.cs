@@ -8,8 +8,8 @@ public class CreateStudentCommand : ICommand<StudentViewModel>
     public Guid Id { get; private set; }
     public string Name { get; set; }
     public string Email { get; set; }
-    public string RA { get; set; }
-    public string CPF { get; set; }
+    public int Ra { get; set; }
+    public string Cpf { get; set; }
     public CreateStudentCommand()
     {
         Id = Guid.NewGuid();

@@ -59,12 +59,22 @@
           Salvar
         </v-btn>      
       </v-card-actions>
+        <v-alert
+            dismissible
+            shaped
+            :type="$store.getters.type_alert"
+            :value="$store.getters.alert"
+            transition="scale-transition"
+        >
+            {{$store.getters.message_alert}}
+        </v-alert>       
     </v-card>
   </v-row>  
 </template>
 
 <script>
-  import StudentService from '@/services/student';
+  import student_service from '@/services/student';
+  import common_service from '@/services/common'
   export default {
 
     data: () => ({
@@ -84,10 +94,23 @@
       close () {
         this.$router.push({ name: 'students'})
       },
-      async save () {
-        await StudentService.post(JSON.stringify(this.student));
-        this.close()
-      },      
+      async save () {        
+        var response = await student_service.post(JSON.stringify(this.student))                                                        
+        const message = common_service.get_message_from_response(response, 'Aluno', 'cadastrado');
+        this.show_message(response.status, message)
+        if (response.status == 201)
+          this.close()
+      },
+
+      show_message(status, message){
+        if(status == 200 || status == 201)
+          this.$show_alert('success', message)
+        else{
+          message.forEach(element => {
+            this.$show_alert('error', element)  
+          });          
+        }
+      }      
     },
   }
 </script>
