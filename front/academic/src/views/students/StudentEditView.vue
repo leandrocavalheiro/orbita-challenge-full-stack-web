@@ -53,7 +53,6 @@
                   label="C.P.F."
                   required
                   maxlength="14"
-                  @input="formatCpf"
                   disabled
                 />
               </v-col>
@@ -111,7 +110,7 @@
     props: ["item"],
     methods: {
       close () {
-        this.$router.push({ name: 'students'})
+        studentService.callRoute(this.$router, 'list')
       },
       async save () {
         const response = await studentService.put(this.student.id, JSON.stringify(this.student));
@@ -130,11 +129,8 @@
 
     async created() {      
       this.student = (await studentService.getById(this.$route.params.id)).data;
-      this.student.cpf = this.formatCpf(this.student.cpf)
-    },
-
-    formatCpf(){
       this.student.cpf = commonService.formatCpf(this.student.cpf)
-    },    
+    }
+
   }
 </script>
