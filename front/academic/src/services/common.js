@@ -1,24 +1,28 @@
 export default{
-    get_message_from_response(response, entity_name= 'Registro', action = 'cadastrado') {
-        let messages = []
+    getMessageFromResponse(response, entityName='Registro', action='cadastrado') {
+        let message = ''
         switch (response.status) {
             case 200:
             case 201:
             case 204:
-                messages[messages.length] = entity_name + ' ' +  action + ' com sucesso!'
+                message = `${entityName}  ${action} com sucesso!`
                 break;
             case 400:
-                if(Array.isArray(response.data))
-                    messages[messages.length] = "Oops algo inesperado aconteceu!"
+                if(Array.isArray(response.data) || !Array.isArray(response.data.error))
+                    message = "Oops algo inesperado aconteceu!"
                 else
-                    response.data.error.forEach(element => {
-                        messages[messages.length] = element.message
-                });                
-                break;                
+                    message = response.data.error[0].message
+                break;
             case 500:
-                messages[messages.length] = "Oops algo inesperado aconteceu!"
+                message = "Oops algo inesperado aconteceu!"
                 break;
           }
-          return messages;
+          return message;
     },
+    formatCpf(value){
+        return value.replace(/\D/g,"")
+                    .replace(/(\d{3})(\d)/,"$1.$2")        
+                    .replace(/(\d{3})(\d)/,"$1.$2")                                                 
+                    .replace(/(\d{3})(\d{1,2})$/,"$1-$2")
+    }    
 }

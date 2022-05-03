@@ -10,7 +10,7 @@ public class PaginationQuery<TResponse> : IRequest<TResponse>
     public string SortBy { get; set; }
     public bool SortDesc { get; set; }
 
-    public PaginationQuery(string filter, int page, int pageSize, string sortBy = "CreatedAt", bool sortDesc = true)
+    public PaginationQuery(string filter, int page, int pageSize, string sortBy = "Code", bool sortDesc = true)
     {
         Filter = filter;
         Page = page;

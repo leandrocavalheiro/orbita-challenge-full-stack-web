@@ -6,14 +6,10 @@ namespace GrupoA.Academic.Commom.Generals;
 
 public static class AcademicMethods
 {
-    private static readonly string OnlyNumberRegex = "[^0-9]";
     private static readonly string EmailRegex = @"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$";
 
     public static DateTime Now()    
         => DateTime.UtcNow.SetKind();
-
-    public static string ExtractNumbersOnly(string value)
-        => (!string.IsNullOrEmpty(value)) ? Regex.Replace(value, OnlyNumberRegex, "") : value;
 
     public static bool EmailValidator(string value)
         => Regex.IsMatch(value, EmailRegex);
@@ -24,8 +20,8 @@ public static class AcademicMethods
 
         int[] multiplier1 = { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
         int[] multiplier2 = { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
-                              
-        value = ExtractNumbersOnly(value);        
+
+        value = value.RemoveCpfMask();
         if (value.Length != 11)
             return false;
 

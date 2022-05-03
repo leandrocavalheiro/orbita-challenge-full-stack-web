@@ -13,5 +13,11 @@ public class UpdateStudentCommandValidator : AbstractValidator<UpdateStudentComm
             .Must(AcademicMethods.Filled)
                 .WithErrorCode(nameof(Messages.RequiredField))
                 .WithMessage(string.Format(Messages.RequiredField, Messages.NameField));
+
+        RuleFor(p => p.Email)
+            .Must(AcademicMethods.EmailValidator)
+                .WithErrorCode(nameof(Messages.InvalidField))
+                .WithMessage(string.Format(Messages.InvalidField, Messages.EmailField))
+                .When(p => !string.IsNullOrEmpty(p.Email));
     }
 }

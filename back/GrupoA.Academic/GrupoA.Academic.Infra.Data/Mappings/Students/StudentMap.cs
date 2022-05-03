@@ -11,11 +11,31 @@ public class StudentMap : IEntityTypeConfiguration<Student>
     {
         builder
             .ToTable(nameof(Student));
+        
 
         builder
             .Property(p => p.Code)
             .HasColumnType(AcademicDataType.Integer)
             .HasDefaultValueSql(AcademicDataType.DetaultNextval(nameof(Student)));
+
+        builder
+            .Property(m => m.Id)
+            .HasColumnType(AcademicDataType.Uuid)
+            .IsRequired();
+
+        builder
+            .Property(m => m.CreatedAt)
+            .HasColumnType(AcademicDataType.Date)
+            .IsRequired();
+
+        builder
+            .Property(m => m.UpdatedAt)
+            .HasColumnType(AcademicDataType.Date)
+            .IsRequired();
+
+        builder
+            .Property(m => m.DeletedAt)
+            .HasColumnType(AcademicDataType.Date);
 
         builder
             .Property(m => m.Name)

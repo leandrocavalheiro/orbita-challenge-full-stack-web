@@ -70,6 +70,15 @@ namespace GrupoA.Academic.Application.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Email.
+        /// </summary>
+        internal static string EmailField {
+            get {
+                return ResourceManager.GetString("EmailField", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a O campo {0} é inválido..
         /// </summary>
         internal static string InvalidField {

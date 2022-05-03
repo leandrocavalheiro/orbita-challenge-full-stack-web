@@ -1,4 +1,5 @@
-﻿using GrupoA.Academic.Commom.Generals;
+﻿using GrupoA.Academic.Commom.Extensions;
+using GrupoA.Academic.Commom.Generals;
 using GrupoA.Academic.Domain.Abstractions.Entities;
 using System;
 
@@ -19,6 +20,6 @@ public class Student : BaseEntity
         Name = name;
         Email = email;
         Ra = ra;
-        Cpf = AcademicMethods.ExtractNumbersOnly(cpf);
+        Cpf = cpf.RemoveCpfMask();
     }
 }

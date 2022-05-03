@@ -6,19 +6,19 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     alert: false,
-    type_alert: 'success',
-    message_alert: 'Sucesso'
+    typeAlert: 'success',
+    messageAlert: 'Sucesso'
   },
   mutations: {
-    change(state, {alert, type_alert, message}) {
+    change(state, {alert, typeAlert, message}) {
       state.alert = alert
-      state.type_alert = type_alert
-      state.message_alert = message
+      state.typeAlert = typeAlert
+      state.messageAlert = message
     }
   },
   getters: {
     alert: state => state.alert,
-    type_alert: state => state.type_alert,
-    message_alert: state => state.message_alert
+    typeAlert: state => state.typeAlert,
+    messageAlert: state => state.messageAlert
   }
 })
