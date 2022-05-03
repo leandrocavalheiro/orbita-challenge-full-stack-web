@@ -3,6 +3,7 @@ using GrupoA.Academic.Application.Abstractions.Models;
 using GrupoA.Academic.Application.Resources;
 using GrupoA.Academic.Application.Students.Commands;
 using GrupoA.Academic.Application.Students.ViewModels;
+using GrupoA.Academic.Commom.Extensions;
 using GrupoA.Academic.Commom.Interfaces;
 using GrupoA.Academic.Domain.Students.Entities;
 using GrupoA.Academic.Domain.Students.Interfaces;
@@ -30,6 +31,8 @@ public class CreateStudentCommandHandler : IRequestHandler<CreateStudentCommand,
 
     public async Task<CommandResult<StudentViewModel>> Handle(CreateStudentCommand command, CancellationToken cancellationToken)
     {
+        command.Cpf = command.Cpf.RemoveCpfMask();
+
         if (!await Validations(command))
             return new CommandResult<StudentViewModel>();
 

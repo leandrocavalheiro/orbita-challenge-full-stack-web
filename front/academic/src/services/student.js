@@ -80,7 +80,7 @@ export default{
                 routerObj.push({ name: `add-${entityName}`});
                 break;
             default:
-                routerObj.push({ name: `${entityName}`});
+                routerObj.push({ name: 'students'});
                 break;                
         }
     }
