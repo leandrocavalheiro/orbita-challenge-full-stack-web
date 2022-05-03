@@ -3,19 +3,15 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify'
-import VueMask from 'v-mask'
-
-Vue.use(VueMask);
-
 
 Vue.config.productionTip = false
-Vue.prototype.$show_alert =  function(type_alert, message){  
-  this.$store.commit('change', {'alert': true, 'type_alert': type_alert,'message': message})
-  this.$hide_alert()
+Vue.prototype.$showAlert =  function(typeAlert, message){  
+  this.$store.commit('change', {'alert': true, 'typeAlert': typeAlert,'message': message})
+  this.$hideAlert()
 }
-Vue.prototype.$hide_alert =  function(){  
+Vue.prototype.$hideAlert =  function(){  
   setTimeout(() => {
-    this.$store.commit('change', {'alert': false, 'type_alert': 'success', 'message': ''})
+    this.$store.commit('change', {'alert': false, 'typeAlert': 'success', 'message': ''})
   }, 5000)
 }
 

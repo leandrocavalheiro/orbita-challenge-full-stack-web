@@ -120,6 +120,9 @@
   <data name="CpfField" xml:space="preserve">
     <value>CPF</value>
   </data>
+  <data name="EmailField" xml:space="preserve">
+    <value>Email</value>
+  </data>
   <data name="InvalidField" xml:space="preserve">
     <value>O campo {0} é inválido.</value>
   </data>

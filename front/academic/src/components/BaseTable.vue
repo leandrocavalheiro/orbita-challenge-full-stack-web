@@ -1,8 +1,8 @@
 <template>
     <div>
         <v-data-table 
-            :headers="header_list" 
-            :items="data_list" 
+            :headers="headerList" 
+            :items="dataList" 
             hide-default-footer
             :sort-desc.sync="sortDesc"
             :sort-by.sync="sortBy"                        
@@ -19,7 +19,7 @@
                         v-model="search"
                         append-icon="mdi-magnify"
                         label="Pesquisar"
-                        @keypress.enter="load_data(1, search, sortBy, sortDesc)"
+                        @keypress.enter="loadData(1, search, sortBy, sortDesc)"
                         single-line
                         hide-details
                     />
@@ -60,8 +60,19 @@
             </template>
 
             <template v-slot:[`item.actions`]="{ item }">
-                <v-icon small class="mr-2" @click="editEntity(item)"> mdi-pencil </v-icon>
-                <v-icon small @click="deleteEntity(item)"> mdi-delete </v-icon>
+                <v-icon 
+                    small 
+                    class="mr-2"
+                    @click="editEntity(item)"
+                > 
+                    mdi-pencil 
+                </v-icon>
+                <v-icon 
+                    small 
+                    @click="deleteEntity(item)"
+                > 
+                    mdi-delete
+                </v-icon>
             </template>
             <template slot="no-data">
                 <p>Nenhum {{title}} cadastrado.</p>
@@ -70,9 +81,9 @@
         <br>
         <div style="display: flex; justify-content: right">          
             <v-pagination 
-                v-model="current_page" 
-                :length="total_page" 
-                @change="load_data" 
+                v-model="currentPage" 
+                :length="totalPage" 
+                @change="loadData" 
                 color="grey darken-2"
                 circle
             />
@@ -80,26 +91,26 @@
         <v-alert
             dismissible
             shaped
-            :type="$store.getters.type_alert"
+            :type="$store.getters.typeAlert"
             :value="$store.getters.alert"
             transition="scale-transition"
         >
-            {{$store.getters.message_alert}}
+            {{$store.getters.messageAlert}}
         </v-alert>          
     </div>
 </template>
 
 <script>  
-    import common_service from '@/services/common'
+    import commonService from '@/services/common'
     export default {
         data: () => ({                                    
             loading: false,
             options: {},
-            entity_name: "",
-            current_page: 1,
-            total_page: 1,
-            items_per_page: 2,      
-            data_list: [],
+            entityName: "",
+            currentPage: 1,
+            totalPage: 1,
+            itensPerPage: 2,      
+            dataList: [],
             dialogDelete: false,        
             search: null,
             sortBy: "code",
@@ -111,19 +122,11 @@
                 email: "",
                 ra: 0,
                 cpf: ""
-            },
-            defaultItem: {
-                id: null,
-                code: 0,
-                name: "",
-                email: "",
-                ra: 0,
-                cpf: ""
-            },
+            }            
         }),
 
         props: {
-            header_list: {
+            headerList: {
                 type: Array,
                 required: true
             },
@@ -131,7 +134,7 @@
                 type: Object,
                 required: true
             },
-            common_service: {
+            commonService: {
                 type: Object,
                 required: true
             },            
@@ -144,46 +147,53 @@
                 required: true
             }
         },
-                    
+
         methods: {
-            get_orderBy(){
-                var orderBy =  this.options.sortBy;                
+
+            getOrderBy(){
+                var orderBy =  this.options.sortBy;
                 if(orderBy == null || orderBy.length === 0)
                     orderBy = this.sortBy
                 return orderBy
             },
-            get_orderDesc(){
+
+            getOrderDesc(){
                 var orderDesc =  this.options.sortDesc;
                 if(orderDesc == null || orderDesc.length === 0)
                     orderDesc = !this.sortDesc
                 return orderDesc
-            },            
-            async initialize() {
-                await this.load_data(this.current_page, this.search)
-                this.entity_name = this.entity                
             },
 
-            async load_data(page, filter = "") {                                
+            async initialize() {
+                await this.loadData(this.currentPage, this.search)
+                this.entityName = this.entity                
+            },
+
+            async loadData(page, filter = "") {                                
                 this.loading = true
-                const response = await this.service.get_all(page, this.items_per_page, filter,  this.get_orderBy(), this.get_orderDesc())                
-                if(response.status == 200)
-                {
-                    this.total_page = response.data.totalPages
-                    this.data_list = response.data.items
-                } 
+                const response = await this.service.getAll(page, this.itensPerPage, filter,  this.getOrderBy(), this.getOrderDesc())
+                if(response.status == 200){
+                    response.data.items.forEach(element => {
+                        element.cpf =  commonService.formatCpf(element.cpf)
+                    });
+                    this.totalPage = response.data.totalPages
+                    this.dataList = response.data.items
+                }
                 else {
-                    this.total_page = 1
-                    this.data_list = []
-                    this.$show_alert('error',  this.common_service.get_message_from_response(response, 'Aluno', 'listado'))
+                    this.totalPage = 1
+                    this.dataList = []
+                    let message = this.commonService.getMessageFromResponse(response, this.title, 'listado')
+                    if(message.length > 0)
+                        this.$showAlert('error',  this.commonService.getMessageFromResponse(response, this.title, 'listado'))
                 }                
                 this.loading = false
             },
-            editEntity(item) {
-                this.$router.push({ name: 'edit-' + this.entity_name, params:{id:item.id}});
+            editEntity(item) {  
+                this.service.callRoute(this.$router, 'edit', item.id)
             },
 
             addEntity() {
-                this.$router.push({ name: 'add-' + this.entity_name});
+               this.service.callRoute(this.$router, 'add')
             },
 
             deleteEntity(item) {
@@ -192,34 +202,31 @@
             },
 
             async deleteEntityConfirm() {                
-                var response = await this.service.delete(this.editedItem.id)
-                const message = common_service.get_message_from_response(response, 'Aluno', 'deletado');
-                this.show_message(response.status, message)
+                var response = await this.service.delete(this.editedItem.id)                
+                this.showMessage(response.status, commonService.getMessageFromResponse(response, this.title, 'deletado'))
                 this.closeDelete(response.status)
             },
 
-            async closeDelete(status) {      
+            async closeDelete(status) {
                 this.dialogDelete = false;
                 if(status == 204)
                     await this.initialize();
             },
-            show_message(status, message){
+            showMessage(status, message){
                 if(status == 200 || status == 201 || status == 204)
-                    this.$show_alert('success', message)
-                else {
-                    
-                    this.$show_alert('error', message)          
-                }
+                    this.$showAlert('success', message)
+                else                    
+                    this.$showAlert('error', message)
             }                    
         },
 
         watch: {
             options(){
-                this.load_data(this.current_page);
+                this.loadData(this.currentPage);
             },
 
-            current_page(page){
-                this.load_data(page, this.search);
+            currentPage(page){
+                this.loadData(page, this.search);
             },             
             dialogDelete(val) {
                 val || this.closeDelete();

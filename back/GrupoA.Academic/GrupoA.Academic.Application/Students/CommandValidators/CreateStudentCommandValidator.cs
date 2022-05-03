@@ -9,11 +9,6 @@ public class CreateStudentCommandValidator : AbstractValidator<CreateStudentComm
 {
     public CreateStudentCommandValidator()
     {
-        RuleFor(p => p.Name)
-            .Must(AcademicMethods.Filled)
-                .WithErrorCode(nameof(Messages.RequiredField))
-                .WithMessage(string.Format(Messages.RequiredField, Messages.NameField));
-
         RuleFor(p => p.Ra)
             .Must(AcademicMethods.Filled)
                 .WithErrorCode(nameof(Messages.RequiredField))
@@ -27,5 +22,16 @@ public class CreateStudentCommandValidator : AbstractValidator<CreateStudentComm
                 .WithErrorCode(nameof(Messages.InvalidField))
                 .WithMessage(string.Format(Messages.InvalidField, Messages.CpfField))
                 .When(p => !string.IsNullOrEmpty(p.Cpf));
+
+        RuleFor(p => p.Name)
+            .Must(AcademicMethods.Filled)
+                .WithErrorCode(nameof(Messages.RequiredField))
+                .WithMessage(string.Format(Messages.RequiredField, Messages.NameField));
+
+        RuleFor(p => p.Email)
+            .Must(AcademicMethods.EmailValidator)
+                .WithErrorCode(nameof(Messages.InvalidField))
+                .WithMessage(string.Format(Messages.InvalidField, Messages.EmailField))
+                .When(p => !string.IsNullOrEmpty(p.Email));
     }
 }

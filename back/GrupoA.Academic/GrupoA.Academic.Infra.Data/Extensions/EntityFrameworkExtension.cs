@@ -6,7 +6,7 @@ namespace GrupoA.Academic.Infra.Data.Extensions
 {
     public static class EntityFrameworkExtension
     {
-        public static IQueryable<TEntity> AddSort<TEntity>(this IQueryable<TEntity> value, string sortby = "CreatedAt", bool sortDesc = true)
+        public static IQueryable<TEntity> AddSort<TEntity>(this IQueryable<TEntity> value, string sortby = "Code", bool sortDesc = true)
         {
             if (sortDesc)
                 return value

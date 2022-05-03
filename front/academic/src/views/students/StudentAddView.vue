@@ -11,39 +11,47 @@
       outlined
       shaped      
     >
-      <template 
-        slot="progress">
-        <v-progress-linear 
-          color="deep-purple" 
-          height="10" 
-          indeterminate 
-      />
-      </template>
 
-      <v-card-title>Cadastrar Aluno</v-card-title>
+      <v-card-title>
+        Cadastrar Aluno
+      </v-card-title>
 
       <v-card-text>      
-        <v-form id="edit-student">
+        <v-form id="add-student">
           <v-container>
             <v-row>
-              <v-col cols="4" xs="12" >
-                <v-text-field v-model="student.code" label="Código" required disabled />
-              </v-col>
-
-              <v-col cols="4" xs="12" >
-                <v-text-field v-model="student.ra" label="R.A." required autofocus/>
+              <v-col cols="6" xs="12" >
+                <v-text-field 
+                  v-model="student.ra" 
+                  label="R.A." 
+                  required 
+                  autofocus
+                />
               </v-col>   
 
-              <v-col cols="4" xs="12" >
-                <v-text-field v-model="student.cpf" label="C.P.F." required/>
+              <v-col cols="6" xs="12" >
+                <v-text-field 
+                  v-model="student.cpf" 
+                  label="C.P.F."
+                  required
+                  maxlength="14"
+                  @input="formatCpf"
+                />
               </v-col>
 
               <v-col cols="12">
-                <v-text-field v-model="student.name" label="Nome" required />
+                <v-text-field 
+                  v-model="student.name" 
+                  label="Nome" 
+                  required                  
+                />
               </v-col>
 
               <v-col cols="12">
-                <v-text-field v-model="student.email" label="Email"/>
+                <v-text-field 
+                  v-model="student.email" 
+                  label="Email"
+                />
               </v-col>
             </v-row>
           </v-container>
@@ -62,19 +70,19 @@
         <v-alert
             dismissible
             shaped
-            :type="$store.getters.type_alert"
+            :type="$store.getters.typeAlert"
             :value="$store.getters.alert"
             transition="scale-transition"
         >
-            {{$store.getters.message_alert}}
+            {{$store.getters.messageAlert}}
         </v-alert>       
     </v-card>
   </v-row>  
 </template>
 
 <script>
-  import student_service from '@/services/student';
-  import common_service from '@/services/common'
+  import studentService from '@/services/student';
+  import commonService from '@/services/common'
   export default {
 
     data: () => ({
@@ -94,22 +102,24 @@
       close () {
         this.$router.push({ name: 'students'})
       },
+
+      formatCpf(){
+        this.student.cpf = commonService.formatCpf(this.student.cpf)
+      },
+
       async save () {        
-        var response = await student_service.post(JSON.stringify(this.student))                                                        
-        const message = common_service.get_message_from_response(response, 'Aluno', 'cadastrado');
-        this.show_message(response.status, message)
+        var response = await studentService.post(JSON.stringify(this.student))                                                        
+        const message = commonService.getMessageFromResponse(response, 'Aluno', 'cadastrado');
+        this.showMessage(response.status, message)
         if (response.status == 201)
           this.close()
       },
 
-      show_message(status, message){
+      showMessage(status, message){
         if(status == 200 || status == 201)
-          this.$show_alert('success', message)
-        else{
-          message.forEach(element => {
-            this.$show_alert('error', element)  
-          });          
-        }
+          this.$showAlert('success', message)
+        else          
+          this.$showAlert('error', message)
       }      
     },
   }

@@ -44,11 +44,6 @@
                     <strong>Leandro Cavalheiro</strong><br>                    
                     leandro.cavalheiro@codengage.com<br>                    
                 </v-card-text>      
-
-      
-
-        
-
     </v-card>
   </v-row>  
 </template>
